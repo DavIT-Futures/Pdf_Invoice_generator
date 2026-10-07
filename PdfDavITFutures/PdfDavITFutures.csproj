@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!-- Upgraded target to modern .NET (Windows desktop) -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>PdfDavITFutures</RootNamespace>
+    <AssemblyName>PdfDavITFutures</AssemblyName>
+    <!-- Prevent SDK from auto-generating assembly attributes which conflict with Properties\AssemblyInfo.cs -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- Enable nullable reference types where helpful -->
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- PackageReference entries migrated and updated for .NET 8 compatibility -->
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.7.0" />
+    <!-- Legacy iTextSharp port used by original PdfService -->
+    <PackageReference Include="itextsharp.LGPLv2.Core" Version="1.7.4" />
+  </ItemGroup>
+
+  <!-- No FrameworkReference for .NET Framework TFMs; keep classic assembly references via PackageReference or GAC references when needed -->
+  <ItemGroup>
+    <!-- Source files and WPF items are implicitly included by the SDK; explicit Compile/ApplicationDefinition items removed to avoid duplication. -->
+    <!-- Resources are included implicitly by SDK; explicit EmbeddedResource entry removed to avoid duplication -->
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="DavIT_Futures2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
