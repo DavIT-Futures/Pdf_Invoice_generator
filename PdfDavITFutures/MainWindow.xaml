@@ -1,0 +1,80 @@
+﻿<Window x:Class="PdfDavITFutures.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PDF Invoice Generator" Height="500" Width="400" 
+        WindowStartupLocation="CenterScreen"
+        Background="LightGray">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Invoice Generator" FontSize="24"></Label>
+        
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <RadioButton Name="rbTyrecheck" Content="Tyrecheck" Click="rbCompany_Click" />
+            <RadioButton Name="rbTirecheck" Content="Tirecheck" Click="rbCompany_Click"/>
+            <RadioButton Name="rbITKontrakt" Content="IT Kontrakt" Click="rbCompany_Click"/>
+            <RadioButton Name="rbIntive" Content="Intive" Click="rbCompany_Click"/>
+            <RadioButton Name="rbCododile" Content="Cododile" Click="rbCompany_Click"/>
+            <RadioButton Name="rbPaulRyan" Content="Paul Ryan" Click="rbCompany_Click"/>
+            <RadioButton Name="rbSII" Content="SII" Click="rbCompany_Click" />
+            <RadioButton Name="rbColtech" Content="Coltech" Click="rbCompany_Click" />
+            <RadioButton Name="rbIgGroup" Content="Ig Group" Click="rbCompany_Click" IsChecked="true" />
+            <RadioButton Name="rbIgGroupBenefit" Content="Ig Group Benefit" Click="rbCompany_Click" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <RadioButton Name="rbEUR" Content="EUR" />
+            <RadioButton Name="rbPLN" Content="PLN" IsChecked="true" />
+            <RadioButton Name="rbGBP" Content="GBP" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <RadioButton Name="rbDaily" Content="Daily" Click="rbUnit_Click" />
+            <RadioButton Name="rbHourly" Content="Hourly" Click="rbUnit_Click" IsChecked="true" />
+            <RadioButton Name="rbSingle" Content="Single" Click="rbUnit_Click" />
+        </StackPanel>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Data wystawienia:" />
+        <DatePicker Grid.Row="2" Grid.Column="1" Name="DateOfIssue" Grid.ColumnSpan="2"/>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Termin zapłaty:" />
+        <DatePicker Grid.Row="3" Grid.Column="1" Name="Deadline" Grid.ColumnSpan="2"/>
+              
+        <Label Grid.Row="4" Grid.Column="0" Name="lblValue" Content="Kwota:"></Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="ValueOfInvoice" Text="" Grid.ColumnSpan="2"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Name="lblNumberOfDays" Content="Liczba dni:" Visibility="Collapsed"></Label>
+        <TextBox Grid.Row="5" Grid.Column="1" Name="NumberOfDays" Visibility="Collapsed" Grid.ColumnSpan="2"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Name="lblNumberOfHours" Content="Liczba godzin:" Visibility="Collapsed"></Label>
+        <TextBox Grid.Row="5" Grid.Column="1" Name="NumberOfHours" Text="168" Visibility="Collapsed" Grid.ColumnSpan="2"/>
+
+        <Label Grid.Row="7" Grid.Column="0" Name="lblServiceName" Content="Nazwa towaru:" Visibility="Visible"></Label>
+        <TextBox Grid.Row="7" Grid.Column="1" Name="ServiceName" Text="" Visibility="Visible" Grid.ColumnSpan="2"/>
+
+        <Label Grid.Row="8" Grid.Column="0" Name="lblInvoiceNo" Content="Nr faktury:" Visibility="Visible"></Label>
+        <TextBox Grid.Row="8" Grid.Column="1" Name="InvoiceNo" Text="" Visibility="Visible" Grid.ColumnSpan="2"/>
+        
+        <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+            Click="Button_Click"
+            Content="Generuj">          
+        </Button>
+    </Grid>
+</Window>
