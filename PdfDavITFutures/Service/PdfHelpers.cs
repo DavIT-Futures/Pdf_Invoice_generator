@@ -33,10 +33,11 @@ namespace PdfDavITFutures.Service
         public static decimal ParseDecimalSafe(string s, decimal defaultValue = 0m)
         {
             if (string.IsNullOrWhiteSpace(s)) return defaultValue;
-            if (decimal.TryParse(s, out var v)) return v;
-            // try replace comma with dot
-            var normalized = s.Replace(',', '.');
-            if (decimal.TryParse(normalized, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out v)) return v;
+            var normalized = s.Trim().Replace(',', '.');
+            if (decimal.TryParse(normalized, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var v)) return v;
+            if (decimal.TryParse(s, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture, out var v2)) return v2;
+
+
             return defaultValue;
         }
 
