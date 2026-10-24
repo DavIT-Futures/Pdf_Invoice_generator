@@ -19,7 +19,7 @@ namespace PdfDavITFutures.Service
         /// Create an iTextSharp.text.Image from a System.Drawing.Image resource in a safe way (uses memory stream).
         /// This avoids relying on image-format-specific overloads and is robust on .NET 8 Windows.
         /// </summary>
-        public static Image GetImageFromResource(D.Image image, D.Imaging.ImageFormat format)
+        public static Image? GetImageFromResource(D.Image? image, D.Imaging.ImageFormat format)
         {
             if (image == null) return null;
             using (var ms = new MemoryStream())

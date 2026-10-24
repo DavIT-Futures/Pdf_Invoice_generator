@@ -1,4 +1,4 @@
-﻿using iTextSharp.text;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
@@ -40,18 +40,18 @@ namespace PdfDavITFutures.Service
 
     public class PdfService
     {
-        Document _doc;
-        PdfWriter _writer;
-        System.IO.FileStream _fileStream;
-        PdfContentByte _canvas;
-        Rectangle _size;
+        Document _doc = null!;
+        PdfWriter _writer = null!;
+        System.IO.FileStream _fileStream = null!;
+        PdfContentByte _canvas = null!;
+        Rectangle _size = null!;
         float _w;
         float _leftMargin;
         float _rightMargin;
         float _leftMargin160;
         float _leftMargin190;
-        string _decimalMask;
-        string _file;
+        string _decimalMask = "0.00";
+        string _file = string.Empty;
 
         public DateTime DateOfIssue { get; set; }
         public DateTime Deadline { get; set; }
@@ -71,7 +71,7 @@ namespace PdfDavITFutures.Service
             TimeSpan ts = DateTime.Now.TimeOfDay;
             this.DateOfIssue = dateOfIssue.AddHours(ts.Hours).AddMinutes(ts.Minutes).AddSeconds(ts.Seconds);
             this.Deadline = deadline;
-            this.Company = company.Value;
+            this.Company = company ?? Company.Tyrecheck;
             this.Currency = currency;
             this.PaymentType = paymentType;
             this.TxtInvoiceNo = txtInvoiceNo;
@@ -178,7 +178,7 @@ namespace PdfDavITFutures.Service
 
             //logo
             var resImg = Properties.Resources.DavIT_Futures2;
-            Image img = PdfHelpers.GetImageFromResource(resImg, D.Imaging.ImageFormat.Jpeg);
+            Image? img = PdfHelpers.GetImageFromResource(resImg, D.Imaging.ImageFormat.Jpeg);
             if (img != null)
             {
                 _canvas.AddImage(img, img.Width / 8, 0, 0, img.Height / 8, x(380), y(140));

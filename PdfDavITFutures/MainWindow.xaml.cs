@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace PdfDavITFutures
             rbIgGroup.IsChecked = true;
             rbPLN.IsChecked = true;
             rbHourly.IsChecked = true;
-            rbCompany_Click(this, null);
+            rbCompany_Click(this, new RoutedEventArgs());
             var now = DateTime.Now;
             DateOfIssue.SelectedDate = now;
             var nextMonth = now.AddMonths(1);
@@ -34,7 +34,7 @@ namespace PdfDavITFutures
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PdfService pdf = new PdfService(DateOfIssue.SelectedDate.Value, Deadline.SelectedDate.Value, ValueOfInvoice.Text, NumberOfDays.Text, NumberOfHours.Text, SelectedCompany(), SelectedCurrency(), SelectedPaymentType(), InvoiceNo.Text, ServiceName.Text);
+            PdfService pdf = new PdfService(DateOfIssue.SelectedDate ?? DateTime.Now, Deadline.SelectedDate ?? DateTime.Now.AddDays(14), ValueOfInvoice.Text, NumberOfDays.Text, NumberOfHours.Text, SelectedCompany(), SelectedCurrency(), SelectedPaymentType(), InvoiceNo.Text, ServiceName.Text);
             try
             {
                 Debug.WriteLine("[MainWindow] Starting PDF generation");
@@ -51,25 +51,25 @@ namespace PdfDavITFutures
 
         private Company? SelectedCompany()
         {
-            if (rbTyrecheck.IsChecked.Value)
+            if (rbTyrecheck.IsChecked == true)
                 return Company.Tyrecheck;
-            else if (rbTirecheck.IsChecked.Value)
+            else if (rbTirecheck.IsChecked == true)
                 return Company.Tirecheck;
-            else if (rbITKontrakt.IsChecked.Value)
+            else if (rbITKontrakt.IsChecked == true)
                 return Company.ITKontrakt;
-            else if (rbIntive.IsChecked.Value)
+            else if (rbIntive.IsChecked == true)
                 return Company.Intive;
-            else if (rbCododile.IsChecked.Value)
+            else if (rbCododile.IsChecked == true)
                 return Company.Cododile;
-            else if (rbPaulRyan.IsChecked.Value)
+            else if (rbPaulRyan.IsChecked == true)
                 return Company.PaulRyan;
-            else if (rbSII.IsChecked.Value)
+            else if (rbSII.IsChecked == true)
                 return Company.SII;
-            else if (rbColtech.IsChecked.Value)
+            else if (rbColtech.IsChecked == true)
                 return Company.Coltech;
-            else if (rbIgGroup.IsChecked.Value)
+            else if (rbIgGroup.IsChecked == true)
                 return Company.IgGroup;
-            else if (rbIgGroupBenefit.IsChecked.Value)
+            else if (rbIgGroupBenefit.IsChecked == true)
                 return Company.IgGroupBenefit;
             else
                 return null;
@@ -77,9 +77,9 @@ namespace PdfDavITFutures
 
         private Currency SelectedCurrency()
         {
-            if (rbEUR.IsChecked.Value)
+            if (rbEUR.IsChecked == true)
                 return Currency.EUR;
-            else if (rbGBP.IsChecked.Value)
+            else if (rbGBP.IsChecked == true)
                 return Currency.GBP;
             else
                 return Currency.PLN;
@@ -87,9 +87,9 @@ namespace PdfDavITFutures
 
         private PaymentType SelectedPaymentType()
         {
-            if (rbDaily.IsChecked.Value)
+            if (rbDaily.IsChecked == true)
                 return PaymentType.Daily;
-            else if (rbHourly.IsChecked.Value)
+            else if (rbHourly.IsChecked == true)
                 return PaymentType.Hourly;
             else
                 return PaymentType.Single;
@@ -98,7 +98,7 @@ namespace PdfDavITFutures
         private void rbCompany_Click(object sender, RoutedEventArgs e)
         {
             string standardServiceName = "Uslugi informatyczne (IT services)";
-            if (rbTyrecheck.IsChecked.Value)
+            if (rbTyrecheck.IsChecked == true)
             {
                 lblValue.Content = "Kwota:";
                 SetValueHint("1480");
@@ -109,7 +109,7 @@ namespace PdfDavITFutures
                 rbEUR.IsChecked = true;
                 ServiceName.Text = "Additional costs when providing IT services(dodatkowe koszty przy swiadczeniu uslug informatycznych)";
             }
-            else if (rbTirecheck.IsChecked.Value)
+            else if (rbTirecheck.IsChecked == true)
             {
                 lblValue.Content = "Stawka dzienna:";
                 SetValueHint("140");
@@ -121,7 +121,7 @@ namespace PdfDavITFutures
                 rbEUR.IsChecked = true;
                 ServiceName.Text = "Uslugi informatyczne(IT services)";
             }
-            else if (rbITKontrakt.IsChecked.Value)
+            else if (rbITKontrakt.IsChecked == true)
             {
                 lblValue.Content = "Stawka godzinowa:";
                 SetValueHint("115");
@@ -133,7 +133,7 @@ namespace PdfDavITFutures
                 rbPLN.IsChecked = true;
                 ServiceName.Text = standardServiceName;
             }
-            else if (rbIntive.IsChecked.Value)
+            else if (rbIntive.IsChecked == true)
             {
                 lblValue.Content = "Stawka godzinowa:";
                 SetValueHint("145");
@@ -145,7 +145,7 @@ namespace PdfDavITFutures
                 rbPLN.IsChecked = true;
                 ServiceName.Text = standardServiceName;
             }
-            else if (rbCododile.IsChecked.Value)
+            else if (rbCododile.IsChecked == true)
             {
                 lblValue.Content = "Stawka godzinowa:";
                 SetValueHint("108");
@@ -157,7 +157,7 @@ namespace PdfDavITFutures
                 rbPLN.IsChecked = true;
                 ServiceName.Text = standardServiceName;
             }
-            else if (rbPaulRyan.IsChecked.Value)
+            else if (rbPaulRyan.IsChecked == true)
             {
                 lblValue.Content = "Stawka godzinowa:";
                 SetValueHint("50");
@@ -169,7 +169,7 @@ namespace PdfDavITFutures
                 rbGBP.IsChecked = true;
                 ServiceName.Text = "IT services [Uslugi informatyczne]";
             }
-            else if (rbSII.IsChecked.Value)
+            else if (rbSII.IsChecked == true)
             {
                 lblValue.Content = "Stawka godzinowa:";
                 SetValueHint("185");
@@ -181,7 +181,7 @@ namespace PdfDavITFutures
                 rbPLN.IsChecked = true;
                 ServiceName.Text = standardServiceName;
             }
-            else if (rbColtech.IsChecked.Value)
+            else if (rbColtech.IsChecked == true)
             {
                 lblValue.Content = "Stawka dzienna:";
                 SetValueHint("400");
@@ -193,7 +193,7 @@ namespace PdfDavITFutures
                 rbEUR.IsChecked = true;
                 ServiceName.Text = "IT services [Uslugi informatyczne]";
             }
-            else if (rbIgGroup.IsChecked.Value)
+            else if (rbIgGroup.IsChecked == true)
             {
                 lblValue.Content = "Stawka godzinowa:";
                 SetValueHint("230");
@@ -206,7 +206,7 @@ namespace PdfDavITFutures
                 rbPLN.IsChecked = true;
                 ServiceName.Text = "IT services [Uslugi informatyczne]. Purchase Order (PO): 13966";
             }
-            else if (rbIgGroupBenefit.IsChecked.Value)
+            else if (rbIgGroupBenefit.IsChecked == true)
             {
                 lblValue.Content = "Kwota:";
                 SetValueHint("850");
