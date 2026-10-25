@@ -15,11 +15,11 @@
 ---
 
 ### Language / Język
-**[🇬🇧 English](#-english)** | **[🇵🇱 Polski](#-polski)**
+**[🇬🇧 English](#english)** | **[🇵🇱 Polski](#polski)**
 
 ---
 
-<a name="-english"></a>
+<a id="english"></a>
 ## 🇬🇧 English
 
 ### Overview
@@ -153,7 +153,7 @@ dotnet test --logger "console;verbosity=detailed"
 
 ---
 
-<a name="-polski"></a>
+<a id="polski"></a>
 ## 🇵🇱 Polski
 
 ### Opis projektu
