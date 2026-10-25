@@ -40,7 +40,19 @@ namespace PdfDavITFutures
                 Debug.WriteLine("[MainWindow] Starting PDF generation");
                 pdf.GeneratePdf();
                 Debug.WriteLine($"[MainWindow] PDF generated: {pdf.GeneratedFilePath}");
-                MessageBox.Show($"PDF wygenerowany:\n{pdf.GeneratedFilePath}", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                var result = MessageBox.Show($"PDF wygenerowany:\n{pdf.GeneratedFilePath}\n\nCzy chcesz otworzyć folder z plikiem?", "Sukces", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result == MessageBoxResult.Yes)
+                {
+                    var folder = Path.GetDirectoryName(pdf.GeneratedFilePath);
+                    if (!string.IsNullOrEmpty(folder) && Directory.Exists(folder))
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = folder,
+                            UseShellExecute = true
+                        });
+                    }
+                }
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-﻿<Window x:Class="PdfDavITFutures.MainWindow"
+<Window x:Class="PdfDavITFutures.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="PDF Invoice Generator" Height="500" Width="400" 
@@ -72,9 +72,13 @@
         <Label Grid.Row="8" Grid.Column="0" Name="lblInvoiceNo" Content="Nr faktury:" Visibility="Visible"></Label>
         <TextBox Grid.Row="8" Grid.Column="1" Name="InvoiceNo" Text="" Visibility="Visible" Grid.ColumnSpan="2"/>
         
-        <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+        <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+            Height="38"
+            Margin="6"
+            FontSize="15"
+            FontWeight="SemiBold"
             Click="Button_Click"
-            Content="Generuj">          
+            Content="Generuj Fakturę">
         </Button>
     </Grid>
 </Window>
