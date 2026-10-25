@@ -4,6 +4,9 @@
   <a href="https://github.com/DavIT-Futures/Pdf_Invoice_generator/actions/workflows/ci.yml">
     <img src="https://github.com/DavIT-Futures/Pdf_Invoice_generator/actions/workflows/ci.yml/badge.svg" alt="Build and Test Status" />
   </a>
+  <a href="https://github.com/DavIT-Futures/Pdf_Invoice_generator/releases/latest">
+    <img src="https://img.shields.io/github/v/release/DavIT-Futures/Pdf_Invoice_generator?style=flat&logo=github" alt="Latest Release" />
+  </a>
   <img src="https://img.shields.io/badge/.NET-8.0-512BD4?style=flat&logo=dotnet&logoColor=white" alt=".NET 8" />
   <img src="https://img.shields.io/badge/C%23-12-239120?style=flat&logo=csharp&logoColor=white" alt="C# 12" />
   <img src="https://img.shields.io/badge/UI-WPF%20%2F%20XAML-0078D6?style=flat" alt="WPF XAML" />
