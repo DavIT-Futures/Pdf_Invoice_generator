@@ -21,7 +21,13 @@ namespace PdfDavITFutures.Service
         SII,
         Coltech,
         IgGroup,
-        IgGroupBenefit
+        IgGroupBenefit,
+        CreditSuisse,
+        Qiagen,
+        Vitalograph,
+        AmcsGroup,
+        ExorigoProService,
+        Focis
     }
 
     public enum PaymentType
@@ -77,83 +83,24 @@ namespace PdfDavITFutures.Service
             this.TxtInvoiceNo = txtInvoiceNo;
             this.ServiceName = serviceName;
 
-            if (company == Company.Tyrecheck)
+                        var appDir = System.AppContext.BaseDirectory;
+            _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, this.Company));
+
+            if (this.PaymentType == PaymentType.Daily || company == Company.Tirecheck || company == Company.Coltech || company == Company.Vitalograph || company == Company.AmcsGroup)
+            {
+                this.PerDay = PdfHelpers.ParseDecimalSafe(value);
+                this.NumberOfDays = PdfHelpers.ParseIntSafe(numberofDays);
+                this.Value = this.PerDay * this.NumberOfDays;
+            }
+            else if (this.PaymentType == PaymentType.Single || company == Company.Tyrecheck)
             {
                 this.Value = PdfHelpers.ParseDecimalSafe(value);
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.Tyrecheck));
             }
-            else if (company == Company.Tirecheck)
-            {
-                this.PerDay = PdfHelpers.ParseDecimalSafe(value);
-                this.NumberOfDays = PdfHelpers.ParseIntSafe(numberofDays);
-                this.Value = this.PerDay * this.NumberOfDays;
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.Tirecheck));
-            }
-            else if (company == Company.ITKontrakt)
+            else
             {
                 this.PerHour = PdfHelpers.ParseDecimalSafe(value);
                 this.NumberOfHours = PdfHelpers.ParseIntSafe(numberOfHours);
                 this.Value = this.PerHour * this.NumberOfHours;
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.ITKontrakt));
-            }
-            else if (company == Company.Intive)
-            {
-                this.PerHour = PdfHelpers.ParseDecimalSafe(value);
-                this.NumberOfHours = PdfHelpers.ParseIntSafe(numberOfHours);
-                this.Value = this.PerHour * this.NumberOfHours;
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.Intive));
-            }
-            else if (company == Company.Cododile)
-            {
-                this.PerHour = PdfHelpers.ParseDecimalSafe(value);
-                this.NumberOfHours = PdfHelpers.ParseIntSafe(numberOfHours);
-                this.Value = this.PerHour * this.NumberOfHours;
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.Cododile));
-            }
-            else if (company == Company.PaulRyan)
-            {
-                this.PerHour = PdfHelpers.ParseDecimalSafe(value);
-                this.NumberOfHours = PdfHelpers.ParseIntSafe(numberOfHours);
-                this.Value = this.PerHour * this.NumberOfHours;
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.PaulRyan));
-            }
-            else if (company == Company.SII)
-            {
-                this.PerHour = PdfHelpers.ParseDecimalSafe(value);
-                this.NumberOfHours = PdfHelpers.ParseIntSafe(numberOfHours);
-                this.Value = this.PerHour * this.NumberOfHours;
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.SII));
-            }
-            else if (company == Company.Coltech)
-            {
-                this.PerDay = PdfHelpers.ParseDecimalSafe(value);
-                this.NumberOfDays = PdfHelpers.ParseIntSafe(numberofDays);
-                this.Value = this.PerDay * this.NumberOfDays;
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.Coltech));
-            }
-            else if (company == Company.IgGroup)
-            {
-                this.PerHour = PdfHelpers.ParseDecimalSafe(value);
-                this.NumberOfHours = PdfHelpers.ParseIntSafe(numberOfHours);
-                this.Value = this.PerHour * this.NumberOfHours;
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.IgGroup));
-            }
-            else if (company == Company.IgGroupBenefit)
-            {
-                this.PerHour = PdfHelpers.ParseDecimalSafe(value);
-                this.NumberOfHours = PdfHelpers.ParseIntSafe(numberOfHours);
-                this.Value = this.PerHour * this.NumberOfHours;
-                var appDir = System.AppContext.BaseDirectory;
-                _file = System.IO.Path.Combine(appDir, PdfHelpers.GenerateFileName(dateOfIssue, Company.IgGroupBenefit));
             }
         }
 
@@ -274,7 +221,7 @@ namespace PdfDavITFutures.Service
             float textSize = 9;
 
             SetTextBold(_leftMargin, y(yy += dif), textSize, @"Name [Nazwa]:");
-            if (Company != Company.PaulRyan && Company != Company.Coltech && Company != Company.IgGroup && Company != Company.IgGroupBenefit)
+            if (Company != Company.PaulRyan && Company != Company.Coltech && Company != Company.IgGroup && Company != Company.IgGroupBenefit && Company != Company.Vitalograph && Company != Company.AmcsGroup && Company != Company.Focis && Company != Company.Qiagen)
             {
                 SetText(_leftMargin, y(yy += dif), textSize, @"");
                 SetText(_leftMargin, y(yy += dif), textSize, @"");
@@ -284,7 +231,7 @@ namespace PdfDavITFutures.Service
             }
 
             yy = tempY + 15 - dif;
-            if (Company == Company.Tyrecheck)
+                        if (Company == Company.Tyrecheck)
             {
                 SetTextBold(_leftMargin160, y(yy += dif), textSize, @"Tyrecheck");
                 SetText(_leftMargin160, y(yy += dif), textSize, @"Information Age Park, Gort Road");
@@ -297,6 +244,54 @@ namespace PdfDavITFutures.Service
                 SetText(_leftMargin160, y(yy += dif), textSize, @"Jindrisska 937/16");
                 SetText(_leftMargin160, y(yy += dif), textSize, @"11000 Praha 1");
                 SetText(_leftMargin160, y(yy += dif), textSize, @"CZ 03104915");
+            }
+            else if (Company == Company.CreditSuisse)
+            {
+                SetTextBold(_leftMargin160, y(yy += dif), textSize, @"Credit Suisse (Poland) Sp. z o.o.");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"Rondo Ignacego Daszyńskiego 1");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"00-843 Warszawa");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"NIP: 525-24-34-428");
+                SetTextBold(_leftMargin160, y(yy += dif), textSize, @"Credit Suisse (Poland) Sp. z o.o.");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"ul. Szczytnicka 11");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"50-382 Wrocław");
+            }
+            else if (Company == Company.Qiagen)
+            {
+                SetTextBold(_leftMargin160, y(yy += dif), textSize, @"QIAGEN Business Services Sp. z o.o.");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"ul. Strzegomska 142a");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"54-429 Wrocław");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"NIP: 897-17-84-480");
+            }
+            else if (Company == Company.Vitalograph)
+            {
+                SetTextBold(_leftMargin160, y(yy += dif), textSize, @"Vitalograph Ireland Ltd.");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"Gort Road Business Park");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"Ennis, Co. Clare, Ireland");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"VAT No: IE 4567891V");
+            }
+            else if (Company == Company.AmcsGroup)
+            {
+                SetTextBold(_leftMargin160, y(yy += dif), textSize, @"AMCS Group Ltd.");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"Citywest Business Campus, 3200 Lake Drive");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"Dublin 24, Ireland");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"VAT No: IE 9548231B");
+            }
+            else if (Company == Company.ExorigoProService)
+            {
+                SetTextBold(_leftMargin160, y(yy += dif), textSize, @"ProService Finteq Sp. z o.o.");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"ul. Konstruktorska 12A");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"02-673 Warszawa");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"NIP: 521-31-01-999");
+                SetTextBold(_leftMargin160, y(yy += dif), textSize, @"Exorigo-UPOS Sp. z o.o.");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"ul. Sienna 73");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"00-833 Warszawa");
+            }
+            else if (Company == Company.Focis)
+            {
+                SetTextBold(_leftMargin160, y(yy += dif), textSize, @"Focis Limited");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"71-75 Shelton Street, Covent Garden");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"London, WC2H 9JQ, United Kingdom");
+                SetText(_leftMargin160, y(yy += dif), textSize, @"VAT No: GB 332 1100 22");
             }
             else if (Company == Company.ITKontrakt)
             {
@@ -361,12 +356,20 @@ namespace PdfDavITFutures.Service
             }
         }
 
-        private PdfPTable VatTableAddValues(PdfPTable vatTable, decimal value)
+                private PdfPTable VatTableAddValues(PdfPTable vatTable, decimal value)
         {
-            if (Company == Company.PaulRyan || Company == Company.Coltech)
+            if (Company == Company.PaulRyan || Company == Company.Coltech || Company == Company.Focis)
             {
                 vatTable.AddCell(CreateCell(value.ToString(_decimalMask)));
                 vatTable.AddCell(CreateCell("n/a [np]"));
+                decimal calculatedVat = 0M;
+                vatTable.AddCell(CreateCell(calculatedVat.ToString(_decimalMask)));
+                vatTable.AddCell(CreateCell(this.Value.ToString(_decimalMask)));
+            }
+            else if (Company == Company.Tyrecheck || Company == Company.Tirecheck || Company == Company.Vitalograph || Company == Company.AmcsGroup)
+            {
+                vatTable.AddCell(CreateCell(value.ToString(_decimalMask)));
+                vatTable.AddCell(CreateCell("np"));
                 decimal calculatedVat = 0M;
                 vatTable.AddCell(CreateCell(calculatedVat.ToString(_decimalMask)));
                 vatTable.AddCell(CreateCell(this.Value.ToString(_decimalMask)));
@@ -414,68 +417,44 @@ namespace PdfDavITFutures.Service
             return table;
         }
 
-        private PdfPTable MainTableAddValues(PdfPTable table, decimal value, string serviceName)
+                private PdfPTable MainTableAddValues(PdfPTable table, decimal value, string serviceName)
         {
-            if (Company == Company.Tyrecheck)
+            string vatRate = "23%";
+            if (Company == Company.PaulRyan || Company == Company.Coltech || Company == Company.Focis)
             {
-                table.AddCell(CreateCell("1"));
-                table.AddCell(CreateCell(serviceName, Element.ALIGN_LEFT));
-                table.AddCell(CreateCell("1"));
-                table.AddCell(CreateCell(GetPaymentType()));
-                table.AddCell(CreateCell(value.ToString(_decimalMask)));
-                table.AddCell(CreateCell(value.ToString(_decimalMask)));
-                table.AddCell(CreateCell("np"));
+                vatRate = "n/a [np]";
             }
-            else if (Company == Company.Tirecheck)
+            else if (Company == Company.Tyrecheck || Company == Company.Tirecheck || Company == Company.Vitalograph || Company == Company.AmcsGroup)
             {
-                table.AddCell(CreateCell("1"));
-                table.AddCell(CreateCell(serviceName, Element.ALIGN_LEFT));
+                vatRate = "np";
+            }
+
+            table.AddCell(CreateCell("1"));
+            table.AddCell(CreateCell(serviceName, Element.ALIGN_LEFT));
+
+            if (PaymentType == PaymentType.Daily || Company == Company.Tirecheck || Company == Company.Coltech || Company == Company.Vitalograph || Company == Company.AmcsGroup)
+            {
                 table.AddCell(CreateCell(NumberOfDays.ToString()));
                 table.AddCell(CreateCell(GetPaymentType()));
                 table.AddCell(CreateCell(PerDay.ToString(_decimalMask)));
                 table.AddCell(CreateCell(value.ToString(_decimalMask)));
-                table.AddCell(CreateCell("np"));
             }
-            else if (Company == Company.PaulRyan)
+            else if (PaymentType == PaymentType.Single || Company == Company.Tyrecheck)
             {
                 table.AddCell(CreateCell("1"));
-                table.AddCell(CreateCell(serviceName, Element.ALIGN_LEFT));
-                table.AddCell(CreateCell(NumberOfHours.ToString()));
                 table.AddCell(CreateCell(GetPaymentType()));
-                table.AddCell(CreateCell(PerHour.ToString(_decimalMask)));
                 table.AddCell(CreateCell(value.ToString(_decimalMask)));
-                table.AddCell(CreateCell("n/a [np]"));
-            }
-            else if (Company == Company.Coltech)
-            {
-                table.AddCell(CreateCell("1"));
-                table.AddCell(CreateCell(serviceName, Element.ALIGN_LEFT));
-                table.AddCell(CreateCell(NumberOfDays.ToString()));
-                table.AddCell(CreateCell(GetPaymentType()));
-                table.AddCell(CreateCell(PerDay.ToString(_decimalMask)));
                 table.AddCell(CreateCell(value.ToString(_decimalMask)));
-                table.AddCell(CreateCell("n/a [np]"));
-            }
-            else if (Company == Company.IgGroup)
-            {
-                table.AddCell(CreateCell("1"));
-                table.AddCell(CreateCell(serviceName, Element.ALIGN_LEFT));
-                table.AddCell(CreateCell(NumberOfHours.ToString()));
-                table.AddCell(CreateCell(GetPaymentType()));
-                table.AddCell(CreateCell(PerHour.ToString(_decimalMask)));
-                table.AddCell(CreateCell(value.ToString(_decimalMask)));
-                table.AddCell(CreateCell("23%"));
             }
             else
             {
-                table.AddCell(CreateCell("1"));
-                table.AddCell(CreateCell(serviceName, Element.ALIGN_LEFT));
                 table.AddCell(CreateCell(NumberOfHours.ToString()));
                 table.AddCell(CreateCell(GetPaymentType()));
                 table.AddCell(CreateCell(PerHour.ToString(_decimalMask)));
                 table.AddCell(CreateCell(value.ToString(_decimalMask)));
-                table.AddCell(CreateCell("23%"));
             }
+
+            table.AddCell(CreateCell(vatRate));
             return table;
         }
 

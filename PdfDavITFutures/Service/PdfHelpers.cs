@@ -58,6 +58,12 @@ namespace PdfDavITFutures.Service
             {
                 Company.Tyrecheck => $"{y}-{m}E - Tyrecheck.pdf",
                 Company.Tirecheck => $"{y}-{m}E - Tirecheck.pdf",
+                Company.CreditSuisse => $"{y}-{m}-{d} - sale [sprzedaz] - Credit Suisse.pdf",
+                Company.Qiagen => $"{y}-{m}-{d} - sale [sprzedaz] - Qiagen.pdf",
+                Company.Vitalograph => $"{y}-{m}E - Vitalograph.pdf",
+                Company.AmcsGroup => $"{y}-{m}E - AMCS Group.pdf",
+                Company.ExorigoProService => $"{y}-{m}-{d} - sale [sprzedaz] - Exorigo ProService.pdf",
+                Company.Focis => $"{y}-{m}-{d} - sale [sprzedaz] - Focis.pdf",
                 Company.ITKontrakt => $"{y}-{m} - ITKontrakt.pdf",
                 Company.Intive => $"{y}-{m}-{d} - sale [sprzedaz] - Intive.pdf",
                 Company.Cododile => $"{y}-{m}-{d} - sale [sprzedaz] - Cododile.pdf",

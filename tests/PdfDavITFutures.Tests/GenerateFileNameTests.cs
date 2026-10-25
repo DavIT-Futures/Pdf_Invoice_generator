@@ -17,6 +17,12 @@ namespace PdfDavITFutures.Tests
         [InlineData(2023, 9, 25, Company.Coltech, "2023-09-25 - sale [sprzedaz] - Coltech.pdf")]
         [InlineData(2024, 10, 30, Company.IgGroup, "2024-10-30 - sale [sprzedaz] - IgKnowhow.pdf")]
         [InlineData(2024, 11, 1, Company.IgGroupBenefit, "2024-11-01 - sale [sprzedaz] - IgKnowhow 2.pdf")]
+        [InlineData(2021, 4, 12, Company.CreditSuisse, "2021-04-12 - sale [sprzedaz] - Credit Suisse.pdf")]
+        [InlineData(2020, 8, 18, Company.Qiagen, "2020-08-18 - sale [sprzedaz] - Qiagen.pdf")]
+        [InlineData(2015, 6, 30, Company.Vitalograph, "2015-06E - Vitalograph.pdf")]
+        [InlineData(2014, 3, 31, Company.AmcsGroup, "2014-03E - AMCS Group.pdf")]
+        [InlineData(2012, 11, 28, Company.ExorigoProService, "2012-11-28 - sale [sprzedaz] - Exorigo ProService.pdf")]
+        [InlineData(2019, 7, 15, Company.Focis, "2019-07-15 - sale [sprzedaz] - Focis.pdf")]
         public void GenerateFileName_ReturnsExpected(int year, int month, int day, Company company, string expected)
         {
             var date = new DateTime(year, month, day);

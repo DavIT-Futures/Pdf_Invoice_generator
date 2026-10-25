@@ -1,10 +1,10 @@
 <Window x:Class="PdfDavITFutures.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="PDF Invoice Generator" Height="500" Width="400" 
+        Title="PDF Invoice Generator" Height="530" Width="470" 
         WindowStartupLocation="CenterScreen"
-        Background="LightGray">
-    <Grid>
+        Background="#F4F5F7">
+    <Grid Margin="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -12,73 +12,76 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="135" />
+            <ColumnDefinition Width="145" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label Content="Invoice Generator" FontSize="24"></Label>
-        
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <RadioButton Name="rbTyrecheck" Content="Tyrecheck" Click="rbCompany_Click" />
-            <RadioButton Name="rbTirecheck" Content="Tirecheck" Click="rbCompany_Click"/>
-            <RadioButton Name="rbITKontrakt" Content="IT Kontrakt" Click="rbCompany_Click"/>
-            <RadioButton Name="rbIntive" Content="Intive" Click="rbCompany_Click"/>
-            <RadioButton Name="rbCododile" Content="Cododile" Click="rbCompany_Click"/>
-            <RadioButton Name="rbPaulRyan" Content="Paul Ryan" Click="rbCompany_Click"/>
-            <RadioButton Name="rbSII" Content="SII" Click="rbCompany_Click" />
-            <RadioButton Name="rbColtech" Content="Coltech" Click="rbCompany_Click" />
-            <RadioButton Name="rbIgGroup" Content="Ig Group" Click="rbCompany_Click" IsChecked="true" />
-            <RadioButton Name="rbIgGroupBenefit" Content="Ig Group Benefit" Click="rbCompany_Click" />
-        </StackPanel>
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="PDF Invoice Generator" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Foreground="#2C3E50" />
 
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <RadioButton Name="rbEUR" Content="EUR" />
-            <RadioButton Name="rbPLN" Content="PLN" IsChecked="true" />
+        <!-- Firma / Klient: ComboBox -->
+        <Label Grid.Row="1" Grid.Column="0" Content="Firma / Klient:" VerticalAlignment="Center" FontWeight="SemiBold" Margin="0,3" />
+        <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="cbCompany"
+                  SelectionChanged="cbCompany_SelectionChanged"
+                  Height="30" Margin="0,3" VerticalContentAlignment="Center" FontSize="12">
+        </ComboBox>
+
+        <!-- Waluta i Jednostka -->
+        <Label Grid.Row="2" Grid.Column="0" Content="Waluta i jednostka:" VerticalAlignment="Center" Margin="0,3" />
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,3">
+            <RadioButton Name="rbPLN" Content="PLN" IsChecked="true" Margin="0,0,10,0" />
+            <RadioButton Name="rbEUR" Content="EUR" Margin="0,0,10,0" />
             <RadioButton Name="rbGBP" Content="GBP" />
         </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="2">
-            <RadioButton Name="rbDaily" Content="Daily" Click="rbUnit_Click" />
-            <RadioButton Name="rbHourly" Content="Hourly" Click="rbUnit_Click" IsChecked="true" />
-            <RadioButton Name="rbSingle" Content="Single" Click="rbUnit_Click" />
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,3">
+            <RadioButton Name="rbHourly" Content="Godziny" Click="rbUnit_Click" IsChecked="true" Margin="0,0,8,0" />
+            <RadioButton Name="rbDaily" Content="Dni" Click="rbUnit_Click" Margin="0,0,8,0" />
+            <RadioButton Name="rbSingle" Content="Ryczałt" Click="rbUnit_Click" />
         </StackPanel>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Data wystawienia:" />
-        <DatePicker Grid.Row="2" Grid.Column="1" Name="DateOfIssue" Grid.ColumnSpan="2"/>
+        <!-- Data wystawienia -->
+        <Label Grid.Row="3" Grid.Column="0" Content="Data wystawienia:" VerticalAlignment="Center" Margin="0,3" />
+        <DatePicker Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="DateOfIssue" Height="28" Margin="0,3" VerticalContentAlignment="Center" />
 
-        <Label Grid.Row="3" Grid.Column="0" Content="Termin zapłaty:" />
-        <DatePicker Grid.Row="3" Grid.Column="1" Name="Deadline" Grid.ColumnSpan="2"/>
-              
-        <Label Grid.Row="4" Grid.Column="0" Name="lblValue" Content="Kwota:"></Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="ValueOfInvoice" Text="" Grid.ColumnSpan="2"/>
+        <!-- Termin zapłaty -->
+        <Label Grid.Row="4" Grid.Column="0" Content="Termin zapłaty:" VerticalAlignment="Center" Margin="0,3" />
+        <DatePicker Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Name="Deadline" Height="28" Margin="0,3" VerticalContentAlignment="Center" />
 
-        <Label Grid.Row="5" Grid.Column="0" Name="lblNumberOfDays" Content="Liczba dni:" Visibility="Collapsed"></Label>
-        <TextBox Grid.Row="5" Grid.Column="1" Name="NumberOfDays" Visibility="Collapsed" Grid.ColumnSpan="2"/>
+        <!-- Kwota / Stawka -->
+        <Label Grid.Row="5" Grid.Column="0" Name="lblValue" Content="Kwota:" VerticalAlignment="Center" Margin="0,3" />
+        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Name="ValueOfInvoice" Height="28" Margin="0,3" VerticalContentAlignment="Center" FontSize="13" />
 
-        <Label Grid.Row="5" Grid.Column="0" Name="lblNumberOfHours" Content="Liczba godzin:" Visibility="Collapsed"></Label>
-        <TextBox Grid.Row="5" Grid.Column="1" Name="NumberOfHours" Text="168" Visibility="Collapsed" Grid.ColumnSpan="2"/>
+        <!-- Liczba dni / Liczba godzin -->
+        <Label Grid.Row="6" Grid.Column="0" Name="lblNumberOfDays" Content="Liczba dni:" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,3" />
+        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="NumberOfDays" Visibility="Collapsed" Height="28" Margin="0,3" VerticalContentAlignment="Center" FontSize="13" />
 
-        <Label Grid.Row="7" Grid.Column="0" Name="lblServiceName" Content="Nazwa towaru:" Visibility="Visible"></Label>
-        <TextBox Grid.Row="7" Grid.Column="1" Name="ServiceName" Text="" Visibility="Visible" Grid.ColumnSpan="2"/>
+        <Label Grid.Row="6" Grid.Column="0" Name="lblNumberOfHours" Content="Liczba godzin:" Visibility="Collapsed" VerticalAlignment="Center" Margin="0,3" />
+        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="NumberOfHours" Text="160" Visibility="Collapsed" Height="28" Margin="0,3" VerticalContentAlignment="Center" FontSize="13" />
 
-        <Label Grid.Row="8" Grid.Column="0" Name="lblInvoiceNo" Content="Nr faktury:" Visibility="Visible"></Label>
-        <TextBox Grid.Row="8" Grid.Column="1" Name="InvoiceNo" Text="" Visibility="Visible" Grid.ColumnSpan="2"/>
-        
+        <!-- Nazwa towaru/usługi -->
+        <Label Grid.Row="7" Grid.Column="0" Name="lblServiceName" Content="Nazwa towaru:" VerticalAlignment="Center" Margin="0,3" />
+        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Name="ServiceName" Text="" Height="28" Margin="0,3" VerticalContentAlignment="Center" FontSize="12" />
+
+        <!-- Nr faktury -->
+        <Label Grid.Row="8" Grid.Column="0" Name="lblInvoiceNo" Content="Nr faktury:" VerticalAlignment="Center" Margin="0,3" />
+        <TextBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Name="InvoiceNo" Text="" Height="28" Margin="0,3" VerticalContentAlignment="Center" FontSize="13" />
+
+        <!-- Generuj Fakturę -->
         <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
-            Height="38"
-            Margin="6"
-            FontSize="15"
-            FontWeight="SemiBold"
-            Click="Button_Click"
-            Content="Generuj Fakturę">
+                Height="40"
+                FontSize="15"
+                FontWeight="Bold"
+                Background="#0066CC"
+                Foreground="White"
+                Click="Button_Click"
+                Content="Generuj Fakturę">
         </Button>
     </Grid>
 </Window>
