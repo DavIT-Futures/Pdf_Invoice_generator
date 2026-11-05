@@ -2,6 +2,7 @@ using iTextSharp.text;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace PdfDavITFutures
@@ -11,11 +12,14 @@ namespace PdfDavITFutures
     /// </summary>
     public static class Extensions
     {
+        private const float PointsPerMillimeter = 72f / 25.4f;
+
         /// <summary>
         /// Calculates the horizontal offset from the right boundary of a standard A4 page.
         /// </summary>
         /// <param name="f">Offset from the right margin in points.</param>
         /// <returns>The absolute X coordinate.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float x(this float f)
         {
             return PageSize.A4.Width - f;
@@ -26,6 +30,7 @@ namespace PdfDavITFutures
         /// </summary>
         /// <param name="f">Offset from the top margin in points.</param>
         /// <returns>The absolute Y coordinate.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float y(this float f)
         {
             return PageSize.A4.Height - f;
@@ -36,9 +41,10 @@ namespace PdfDavITFutures
         /// </summary>
         /// <param name="mm">Measurement in millimeters.</param>
         /// <returns>Value converted to PDF points.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ToPdfPoints(this float mm)
         {
-            return mm * (72f / 25.4f);
+            return mm * PointsPerMillimeter;
         }
     }
 }
