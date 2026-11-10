@@ -5,8 +5,17 @@ using D = System.Drawing;
 
 namespace PdfDavITFutures.Service
 {
+    /// <summary>
+    /// Utility methods for document formatting, file naming, resource loading, and resilient numeric parsing.
+    /// </summary>
     public static class PdfHelpers
     {
+        /// <summary>
+        /// Formats an invoice identification number, generating a timestamp-based fallback if blank.
+        /// </summary>
+        /// <param name="date">Issue timestamp used for automatic numbering.</param>
+        /// <param name="invoiceNo">Explicit invoice number override if supplied.</param>
+        /// <returns>Normalized invoice identifier string.</returns>
         public static string GenerateInvoiceNo(DateTime date, string invoiceNo)
         {
             if (!string.IsNullOrEmpty(invoiceNo))
@@ -30,6 +39,12 @@ namespace PdfDavITFutures.Service
             }
         }
 
+        /// <summary>
+        /// Safely parses an input string into a decimal value with cultural invariant normalization.
+        /// </summary>
+        /// <param name="s">Raw string representing numeric input.</param>
+        /// <param name="defaultValue">Fallback value if parsing fails or input is empty.</param>
+        /// <returns>Parsed decimal value.</returns>
         public static decimal ParseDecimalSafe(string s, decimal defaultValue = 0m)
         {
             if (string.IsNullOrWhiteSpace(s)) return defaultValue;
@@ -41,6 +56,12 @@ namespace PdfDavITFutures.Service
             return defaultValue;
         }
 
+        /// <summary>
+        /// Safely parses an input string into an integer.
+        /// </summary>
+        /// <param name="s">Raw string representing numeric input.</param>
+        /// <param name="defaultValue">Fallback value if parsing fails or input is empty.</param>
+        /// <returns>Parsed integer value.</returns>
         public static int ParseIntSafe(string s, int defaultValue = 0)
         {
             if (string.IsNullOrWhiteSpace(s)) return defaultValue;
@@ -49,6 +70,12 @@ namespace PdfDavITFutures.Service
             return defaultValue;
         }
 
+        /// <summary>
+        /// Generates the standard destination filename for an invoice PDF based on date and recipient profile.
+        /// </summary>
+        /// <param name="date">Issue timestamp for filename naming convention.</param>
+        /// <param name="company">Target recipient company enumeration value.</param>
+        /// <returns>Standardized PDF filename.</returns>
         public static string GenerateFileName(DateTime date, Company company)
         {
             string y = date.Year.ToString("D4");
