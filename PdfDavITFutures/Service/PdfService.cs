@@ -10,6 +10,9 @@ using D = System.Drawing;
 
 namespace PdfDavITFutures.Service
 {
+    /// <summary>
+    /// Supported client companies and billing profiles.
+    /// </summary>
     public enum Company
     {
         Tyrecheck,
@@ -30,6 +33,9 @@ namespace PdfDavITFutures.Service
         Focis
     }
 
+    /// <summary>
+    /// Remuneration and rate calculation models.
+    /// </summary>
     public enum PaymentType
     {
         Daily,
@@ -37,6 +43,9 @@ namespace PdfDavITFutures.Service
         Single
     }
 
+    /// <summary>
+    /// Transaction currency codes used in invoices.
+    /// </summary>
     public enum Currency
     {
         EUR,
@@ -44,6 +53,9 @@ namespace PdfDavITFutures.Service
         GBP
     }
 
+    /// <summary>
+    /// Core document generation engine for creating professional PDF invoices.
+    /// </summary>
     public class PdfService
     {
         Document _doc = null!;
