@@ -27,5 +27,32 @@ namespace PdfDavITFutures.Tests
             var v = PdfHelpers.ParseIntSafe(input);
             Assert.Equal(expected, v);
         }
+
+        [Theory]
+        [InlineData("not-a-number", 99.5)]
+        [InlineData("   ", -1.25)]
+        [InlineData(null, 42.0)]
+        public void ParseDecimalSafe_InvalidOrBlankInput_ReturnsCustomDefaultValue(string input, decimal fallback)
+        {
+            var actual = PdfHelpers.ParseDecimalSafe(input, fallback);
+            Assert.Equal(fallback, actual);
+        }
+
+        [Theory]
+        [InlineData("abc", 7)]
+        [InlineData("   ", -3)]
+        [InlineData("99999999999999999999", 15)]
+        public void ParseIntSafe_InvalidOrOverflowInput_ReturnsCustomDefaultValue(string input, int fallback)
+        {
+            var actual = PdfHelpers.ParseIntSafe(input, fallback);
+            Assert.Equal(fallback, actual);
+        }
+
+        [Fact]
+        public void GetImageFromResource_WhenImageIsNull_ReturnsNull()
+        {
+            var result = PdfHelpers.GetImageFromResource(null, System.Drawing.Imaging.ImageFormat.Png);
+            Assert.Null(result);
+        }
     }
 }
