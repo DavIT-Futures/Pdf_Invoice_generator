@@ -21,5 +21,13 @@ namespace PdfDavITFutures.Tests
             var result = PdfHelpers.GenerateInvoiceNo(date, null);
             Assert.Equal("20201231-235959", result);
         }
+
+        [Fact]
+        public void GeneratesZeroPaddedTimestamp_WhenInvoiceNoIsEmptyString()
+        {
+            var date = new DateTime(2026, 3, 5, 7, 8, 9);
+            var result = PdfHelpers.GenerateInvoiceNo(date, string.Empty);
+            Assert.Equal("20260305-070809", result);
+        }
     }
 }
